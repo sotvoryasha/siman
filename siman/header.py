@@ -121,8 +121,7 @@ def _update_configuration(filename, pfolder = None, clusters=None):
     import importlib.util, sys
     spec = importlib.util.spec_from_file_location('project_conf', filename)
     project_conf = importlib.util.module_from_spec(spec)
-    if clusters:
-        setattr(header, "CLUSTERS", clusters)
+
     spec.loader.exec_module(project_conf)
     # print(dir(project_conf))
     config_vars = ['MEM_CPU','CIF2CELL', 'DEFAULT_CLUSTER', 'EXCLUDE_NODES', 
@@ -143,6 +142,8 @@ def _update_configuration(filename, pfolder = None, clusters=None):
             pass
         # print(var, value)
     # CLUSTERS = getattr(project_conf, 'CLUSTERS')
+    if clusters:
+        setattr(header, "CLUSTERS", clusters)
 
     # print(CLUSTERS)
 
